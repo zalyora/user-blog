@@ -1,0 +1,82 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+li {
+    list-style: none;
+}
+
+.user-link {
+    display: flex;
+    font-weight: 600;
+    color: #2e2ea8;
+    margin: 8px 0;
+    cursor: pointer;
+}
+
+.user-status {
+    display: flex;
+    color: #1a8694;
+    font-style: oblique;
+    margin-left: 8px;
+}
+
+.user-name {
+    color: #2e2ea8;
+    margin: 8px 0;
+    font-weight: 800;
+}
+
+.post-link {
+    display: flex;
+    cursor: pointer;
+    color: #0d6874;
+    font-weight: 600;
+}
+
+.post-desc {
+    color: #21217e;
+    line-height: 1.5;
+}
+
+.message {
+    color: #e0365b;
+}
+
+.back {
+    display: flex;
+    margin-top: 16px;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 8px 16px;
+    color: #ffffff;
+    background-color: #3ec4d6;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.comments-list .back {
+    order: 3;
+    max-width: 90px;
+}
+
+.comments-list .post-link {
+    cursor: text;
+}
+
+.comment {
+    margin: 8px 0;
+}
+
+.commentor-name {
+    color: #14162c;
+    font-weight: 800;
+    font-style: italic;
+}

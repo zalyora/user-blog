@@ -3,7 +3,7 @@ import { User } from "./src/user.js";
 import { Post } from "./src/post.js";
 import { Comment } from "./src/comment.js";
 
-const ACCESS_TOKEN = '10dfbc073f7b1af656eb88ddcb96d8960064a144bec94cb84ae0597f9372d018';
+const ACCESS_TOKEN = '';
 const LIST_TITLE = document.querySelector('.list-title');
 const USER_LIST = document.querySelector('.user-list');
 const POSTS_LIST = document.querySelector('.posts-list');

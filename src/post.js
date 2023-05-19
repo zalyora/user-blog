@@ -1,9 +1,10 @@
 export class Post {
-    constructor(userId, postId, title, text) {
+    constructor(userId, postId, title, text, shorten) {
         this.userId = userId;
         this.postId = postId;
         this.title = title;
         this.text = text;
+        this.shorten = shorten
     }
     createPost(element) {
         let li = document.createElement('li');
@@ -16,7 +17,12 @@ export class Post {
         li.appendChild(postName);
         let postText = document.createElement('p');
         postText.classList = 'post-desc';
-        postText.innerText = this.text;
+        if (this.shorten == true) {
+            postText.innerText = this.text.substring(0, 100) + '...';
+        } else {
+            postText.innerText = this.text;
+        }
+        
         li.appendChild(postText);
         element.appendChild(li);
     }

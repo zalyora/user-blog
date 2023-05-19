@@ -3,25 +3,34 @@ import { User } from "./src/user.js";
 import { Post } from "./src/post.js";
 import { Comment } from "./src/comment.js";
 
-const ACCESS_TOKEN = '';
+const ACCESS_TOKEN = '10dfbc073f7b1af656eb88ddcb96d8960064a144bec94cb84ae0597f9372d018';
+const LIST_TITLE = document.querySelector('.list-title');
 const USER_LIST = document.querySelector('.user-list');
 const POSTS_LIST = document.querySelector('.posts-list');
 const COMMENTS_LIST = document.querySelector('.comments-list');
 
+const message = document.createElement('span');
+message.innerText = 'This user has no posts';
+message.classList.add('message');
+
 const api = new gorestAPI(ACCESS_TOKEN);
 document.addEventListener("DOMContentLoaded", api.getUsers().then((users) => {
+    LIST_TITLE.innerText = 'Choose the user whose posts you want to see:';
     for (let i = 0; i < users.length; i++) {
         let user = users[i];
         let newUser = new User(user.id, user.name, user.status);
         newUser.createUser(USER_LIST);
     }
     USER_LIST.addEventListener('click', (e) => {
-        let userID = e.target.id;
-        let name = e.target.innerHTML;
-        createPosts(userID, name);
+        if (e.target.classList.contains('user-link')) {
+            let userID = e.target.id;
+            let name = e.target.innerHTML;
+            createPosts(userID, name);
+        }
     });
     })
     .catch((error) => {
+        USER_LIST.innerText = 'Users are not found';
         console.error(error);
     })
 );
@@ -36,12 +45,9 @@ function createPosts(userID, name) {
             let post = posts[i];
             
             if (userID == post.user_id) {
-                newPost = new Post(post.user_id, post.id, post.title, post.body);
+                newPost = new Post(post.user_id, post.id, post.title, post.body, true);
                 newPost.createPost(POSTS_LIST);
-            } else if(newPost == '') {
-                let message = document.createElement('span');
-                message.innerText = 'У даного користувача відсутні пости';
-                message.classList.add('message');
+            } else if(!newPost) {
                 POSTS_LIST.appendChild(message);
             }
         }
@@ -51,16 +57,18 @@ function createPosts(userID, name) {
             window.location.assign('index.html');
         });
         POSTS_LIST.addEventListener('click', (e) => {
-            POSTS_LIST.innerHTML = '';
-            let thisPostInfo = newPost.showPost();
-            newPost = new Post(thisPostInfo[0], thisPostInfo[1], thisPostInfo[2], thisPostInfo[3]);
-            newPost.createPost(COMMENTS_LIST);
-            createComments(e.target.id);
-            createBackButton(COMMENTS_LIST);
-            let button = document.querySelector('button');
-            button.addEventListener('click', () => {
+            if (e.target.classList.contains('post-link')) {
+                POSTS_LIST.innerHTML = '';
+                let thisPostInfo = newPost.showPost();
+                newPost = new Post(thisPostInfo[0], thisPostInfo[1], thisPostInfo[2], thisPostInfo[3], false);
+                newPost.createPost(COMMENTS_LIST);
+                createComments(e.target.id);
+                createBackButton(COMMENTS_LIST);
+                let button = document.querySelector('button');
+                button.addEventListener('click', () => {
                 window.location.assign('index.html');
             });
+            }
         });
         })
         .catch((error) => {
@@ -87,6 +95,6 @@ function createComments(id) {
 function createBackButton(elem) {
     let button = document.createElement('button');
     button.classList = 'back';
-    button.innerText = 'Назад';
+    button.innerText = 'Back';
     elem.appendChild(button);
 }

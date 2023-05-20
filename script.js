@@ -66,8 +66,15 @@ function createPosts(userID, name) {
                 createBackButton(COMMENTS_LIST);
                 let button = document.querySelector('button');
                 button.addEventListener('click', () => {
-                window.location.assign('index.html');
-            });
+                    COMMENTS_LIST.innerHTML = '';
+                    newPost = new Post(thisPostInfo[0], thisPostInfo[1], thisPostInfo[2], thisPostInfo[3], true);
+                    newPost.createPost(POSTS_LIST);
+                    createBackButton(POSTS_LIST);
+                    let button = document.querySelector('button');
+                    button.addEventListener('click', () => {
+                        window.location.assign('index.html');
+                    });
+                });
             }
         });
         })
